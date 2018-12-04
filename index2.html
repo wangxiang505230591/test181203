@@ -53,7 +53,6 @@ if (navigator.mediaDevices) {
         video.srcObject = stream;
         video.onloadedmetadata = function(e) {
             video.play();
-            video.muted = 10;
         };
         // Create a MediaStreamAudioSourceNode
         // Feed the HTMLMediaElement into it

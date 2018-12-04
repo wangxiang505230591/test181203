@@ -47,6 +47,7 @@ if(!navigator.mediaDevices.getUserMedia){
 navigator.mediaDevices.getUserMedia({audio: true}, onSuccess, onError); //调用麦克风捕捉音频信息，成功时触发onSuccess函数，失败时触发onError函数
 
 function onSuccess(stream){
+	alert('onSuccess');
 	audioContext = window.AudioContext || window.webkitAudioContext;
 	context = new audioContext(); //创建一个管理、播放声音的对象
 	liveSource = context.createMediaStreamSource(stream); //将麦克风的声音输入这个对象
@@ -71,6 +72,7 @@ function onSuccess(stream){
 	};
 }
 function onError(){
+	alert('onError');
 	mystatus.innerHTML = "获取音频时好像出了点问题。"
 }
 </script>

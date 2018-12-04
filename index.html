@@ -5,7 +5,7 @@
     <title>web调取摄像头</title>
 </head>
 <body>
-    <video src=""></video>
+   
 <script>
     if (navigator.mediaDevices === undefined) {
         navigator.mediaDevices = {};
@@ -24,7 +24,7 @@
 window.URL = (window.URL || window.webkitURL || window.mozURL || window.msURL);
         var mediaOpts = {
             audio: true,
-            video: true,
+            video: false
         }
             function successFunc(stream) {
 				alert(stream);

@@ -70,6 +70,9 @@ if (navigator.mediaDevices) {
         biquadFilter.connect(audioCtx.destination);
         // Get new mouse pointer coordinates when mouse is moved
         // then set new gain value
+		
+		alert('是音量嘛？'+biquadFilter.gain.value);
+
         range.oninput = function() {
             biquadFilter.gain.value = range.value;
         }

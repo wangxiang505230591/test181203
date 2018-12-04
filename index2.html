@@ -16,8 +16,6 @@
 
   <body>
     <h1>createMediaStreamSource example</h1>
-    <video controls>
-    </video>
     <br>
     <input type="range" min="1" max="40">
     
@@ -53,7 +51,7 @@ if (navigator.mediaDevices) {
         video.srcObject = stream;
         video.onloadedmetadata = function(e) {
             video.play();
-            video.muted = true;
+            video.muted = 10;
         };
         // Create a MediaStreamAudioSourceNode
         // Feed the HTMLMediaElement into it

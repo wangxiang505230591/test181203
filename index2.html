@@ -15,7 +15,7 @@
   </head>
 
   <body>
-    <h1>createMediaStreamSource example</h1>
+    <h1>createMediaStreamSource example1</h1>
     <video controls>
     </video>
     <br>
@@ -48,12 +48,12 @@ var phaseResponseOutput = new Float32Array(5);
 // also output the visuals into a video element 
 if (navigator.mediaDevices) {
     console.log('getUserMedia supported.');
-    navigator.mediaDevices.getUserMedia ({audio: true, video: true})
+    navigator.mediaDevices.getUserMedia ({audio: true, video: false})
     .then(function(stream) {
-        video.srcObject = stream;
+        /*video.srcObject = stream;
         video.onloadedmetadata = function(e) {
             video.play();
-        };
+        };*/
         // Create a MediaStreamAudioSourceNode
         // Feed the HTMLMediaElement into it
         var audioCtx = new AudioContext();

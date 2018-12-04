@@ -27,7 +27,7 @@ window.URL = (window.URL || window.webkitURL || window.mozURL || window.msURL);
             video: true,
         }
             function successFunc(stream) {
-				alert('成功');
+				alert(stream);
                 /*var video = document.querySelector('video');
                 if ("srcObject" in video) {
                     video.srcObject = stream
@@ -35,8 +35,8 @@ window.URL = (window.URL || window.webkitURL || window.mozURL || window.msURL);
                     video.src = window.URL && window.URL.createObjectURL(stream) || stream
                 }
                 video.play();*/
-				var audioContext = window.AudioContext || window.webkitAudioContext;
-				context = new audioContext(); //创建一个管理、播放声音的对象
+				/*var audioContext = window.AudioContext || window.webkitAudioContext;
+				context = new AudioContext(); //创建一个管理、播放声音的对象
 				liveSource = context.createMediaStreamSource(stream); //将麦克风的声音输入这个对象
 			  var levelChecker = context.createScriptProcessor(4096,1,1); //创建一个音频分析对象，采样的缓冲区大小为4096，输入和输出都是单声道
 			  liveSource.connect(levelChecker); //将该分析对象与麦克风音频进行连接
@@ -55,8 +55,8 @@ window.URL = (window.URL || window.webkitURL || window.mozURL || window.msURL);
 						//当音量值大于0.5时，显示“声音太响”字样，并断开音频连接
 						mystatus.innerHTML = "您的声音太响了!!";
 						liveSource.disconnect(levelChecker);
-					}*/
-				}
+					}
+				}*/
             }
             function errorFunc(err) {
                 alert(err.name);

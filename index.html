@@ -44,8 +44,9 @@ navigator.mediaDevices.getUserMedia = navigator.mediaDevices.getUserMedia || nav
 if(!navigator.mediaDevices.getUserMedia){
 	mystatus.innerHTML = "您的浏览器不支持获取音频。"
 }
-navigator.mediaDevices.getUserMedia({audio: true}, onSuccess, onError); //调用麦克风捕捉音频信息，成功时触发onSuccess函数，失败时触发onError函数
 
+navigator.mediaDevices.getUserMedia({audio: true}, onSuccess, onError); //调用麦克风捕捉音频信息，成功时触发onSuccess函数，失败时触发onError函数
+alert('1');
 function onSuccess(stream){
 	alert('onSuccess');
 	audioContext = window.AudioContext || window.webkitAudioContext;
@@ -69,7 +70,7 @@ function onSuccess(stream){
 			mystatus.innerHTML = "您的声音太响了!!";
 			liveSource.disconnect(levelChecker);
 		}
-	};
+	}
 }
 function onError(){
 	alert('onError');

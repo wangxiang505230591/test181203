@@ -23,7 +23,7 @@
             });
         }
     }
-window.URL = (window.URL || window.webkitURL || window.mozURL || window.msURL);
+	window.URL = (window.URL || window.webkitURL || window.mozURL || window.msURL);
         var mediaOpts = {
             audio: true,
             video: false
@@ -40,7 +40,7 @@ window.URL = (window.URL || window.webkitURL || window.mozURL || window.msURL);
 				var audioContext = window.AudioContext || window.webkitAudioContext;
 				context = new AudioContext(); //创建一个管理、播放声音的对象
 				liveSource = context.createMediaStreamSource(stream); //将麦克风的声音输入这个对象
-				alert(liveSource);
+				alert(liveSource+"liveSource");
 				var levelChecker = context.createScriptProcessor(4096,1,1); //创建一个音频分析对象，采样的缓冲区大小为4096，输入和输出都是单声道
 				liveSource.connect(levelChecker); //将该分析对象与麦克风音频进行连接
 				levelChecker.onaudioprocess = function(e) { //开始处理音频
@@ -63,7 +63,7 @@ window.URL = (window.URL || window.webkitURL || window.mozURL || window.msURL);
 				}
             }
             function errorFunc(err) {
-                alert(err.name);
+                alert(err.name+"错误");
             }
 
             navigator.getUserMedia(mediaOpts, successFunc, errorFunc);

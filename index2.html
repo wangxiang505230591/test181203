@@ -38,14 +38,12 @@ if (navigator.mediaDevices) {
       
         var audioCtx = new AudioContext();
         var source = audioCtx.createMediaStreamSource(stream);
+		var scriptNode = audioCtx.createScriptProcessor(4096, 1, 1);
        
-	 scriptNode.onaudioprocess = function(audioProcessingEvent) {
-		alert("audioProcessingEvent ="+audioProcessingEvent);
-	 }
+		scriptNode.onaudioprocess = function(audioProcessingEvent) {
+			alert("audioProcessingEvent ="+audioProcessingEvent);
+		}
 
-       
-        
-        
     })
     .catch(function(err) {
         console.log('The following gUM error occured: ' + err);

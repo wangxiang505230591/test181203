@@ -27,6 +27,7 @@
   </body>
 <script>
 	var vConsole = new VConsole();
+	var maxVoice = [];
 //公共方法
 	var Util = {
 		//初始化
@@ -75,12 +76,10 @@
 								maxVal = array[i];
 						}
 				}
-				console.log(maxVal);
-				//显示音量值
-				myP.innerHTML = "您的音量值："+Math.round(maxVal*100);
+				maxVoice.push(maxVal);
+				console.log(maxVoice);
+				
 			};
-			
-
 			//接口列表
 			//开始录音
 			
@@ -125,7 +124,14 @@
 		if(processor && microphone){
 			microphone.disconnect();  //disconnect断开所有链接
 			processor.disconnect();
+
+			var getMax = Math.max.apply(null, maxVoice);
+			//显示音量值
+			myP.innerHTML = "您的音量最大值："+Math.round(maxVal*100);
 			Util.log('录音结束');
+
+			
+			
 		}
 	}
 

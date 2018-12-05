@@ -16,8 +16,7 @@
 
   <body>
     <h1>createMediaStreamSource example1</h1>
-    <video controls>
-    </video>
+	 <button id="start" class="ui-btn ui-btn-primary" disabled>录音</button>
     <br>
     
     <pre></pre>
@@ -27,14 +26,109 @@
     </ul>
   </body>
 <script>
+//公共方法
+	var Util = {
+		//初始化
+		init: function(){
+			navigator.getUserMedia = navigator.getUserMedia ||
+									 navigator.webkitGetUserMedia ||
+									 navigator.mozGetUserMedia ||
+									 navigator.msGetUserMedia;
 
-var myP = document.querySelector('p');
+			window.AudioContext = window.AudioContext ||
+								  window.webkitAudioContext;
+		},
+		//日志
+		log: function(){
+			console.log.apply(console,arguments);
+		}
+	};
+
+	var myP = document.querySelector('p');
+	var start = document.querySelector('#start');
+	
+
+	Util.init();
+	
+	var context,microphone,processor;
+
+	if(navigator.getUserMedia){
+		navigator.getUserMedia({
+			audio: true //配置对象
+		},
+		function(stream){ //成功回调
+				context = new AudioContext();
+				microphone = context.createMediaStreamSource(stream); //媒体流音频源
+				processor = context.createScriptProcessor(16384,1,1); //js音频处理器
+
+			//config.sampleRate = context.sampleRate;
+
+			processor.onaudioprocess = function(event){
+				//监听音频录制过程
+				var array = event.inputBuffer.getChannelData(0);
+				realTimeWorker.postMessage({ cmd: 'encode', buf: array });
+				
+				var maxVal = 0; 
+				for (var i = 0; i < array.length; i++) {
+						if (maxVal < array[i]) {
+								maxVal = array[i];
+						}
+				}
+				//显示音量值
+				myP.innerHTML = "您的音量值："+Math.round(maxVal*100);
+			};
+			
+
+			//接口列表
+			//开始录音
+			
+		},
+		function(error){ //失败回调
+			var msg;
+			switch(error.code || error.name){
+				case 'PermissionDeniedError':
+				case 'PERMISSION_DENIED':
+				case 'NotAllowedError':
+					msg = '用户拒绝访问麦克风';
+					break;
+				case 'NOT_SUPPORTED_ERROR':
+				case 'NotSupportedError':
+					msg = '浏览器不支持麦克风';
+					break;
+				case 'MANDATORY_UNSATISFIED_ERROR':
+				case 'MandatoryUnsatisfiedError':
+					msg = '找不到麦克风设备';
+					break;
+				default:
+					msg = '无法打开麦克风，异常信息:' + (error.code || error.name);
+					break;
+			}
+			Util.log(msg);
+			
+		});
+	}else{
+		Util.log('当前浏览器不支持录音功能');
+	}
+	
+	function clickStarVioce(){
+		if(processor && microphone){
+			microphone.connect(processor);
+			processor.connect(context.destination);
+			Util.log('开始录音');
+		}
+	}
+
+
+
+
+/*
 
 if (navigator.mediaDevices) {
     console.log('getUserMedia supported.');
     navigator.mediaDevices.getUserMedia({audio: true, video: false})
     .then(function(stream) {
-      
+		
+		 audioContext = window.AudioContext || window.webkitAudioContext;
         var audioCtx = new AudioContext();
         var source = audioCtx.createMediaStreamSource(stream);
 		var scriptNode = audioCtx.createScriptProcessor(4096, 1, 1);
@@ -51,6 +145,6 @@ if (navigator.mediaDevices) {
 } else {
     myP.innerHTML = 'getUserMedia not supported on your browser!';
 }
-// dump script to pre element
+// dump script to pre element*/
 </script>
 </html>

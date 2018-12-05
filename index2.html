@@ -66,7 +66,7 @@
 				//监听音频录制过程
 				var array = event.inputBuffer.getChannelData(0);
 				//realTimeWorker.postMessage({ cmd: 'encode', buf: array });
-				
+				console.log(array);
 				var maxVal = 0; 
 				for (var i = 0; i < array.length; i++) {
 						if (maxVal < array[i]) {

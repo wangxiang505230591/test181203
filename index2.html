@@ -19,17 +19,16 @@
     <video controls>
     </video>
     <br>
-    <input type="range" min="1" max="40">
     
     <pre></pre>
 
-    <p>Biquad filter frequency response for: </p>
+    <p></p>
     <ul class="freq-response-output">
     </ul>
   </body>
 <script>
 
-
+var myP = document.querySelector('p');
 
 if (navigator.mediaDevices) {
     console.log('getUserMedia supported.');
@@ -41,15 +40,16 @@ if (navigator.mediaDevices) {
 		var scriptNode = audioCtx.createScriptProcessor(4096, 1, 1);
        
 		scriptNode.onaudioprocess = function(audioProcessingEvent) {
-			alert("audioProcessingEvent ="+audioProcessingEvent);
+			myP.innerHTML = "audioProcessingEvent ="+audioProcessingEvent;
+			//alert("audioProcessingEvent ="+audioProcessingEvent);
 		}
 
     })
     .catch(function(err) {
-        console.log('The following gUM error occured: ' + err);
+        myP.innerHTML = 'The following gUM error occured: ' + err;
     });
 } else {
-    console.log('getUserMedia not supported on your browser!');
+    myP.innerHTML = 'getUserMedia not supported on your browser!';
 }
 // dump script to pre element
 </script>
